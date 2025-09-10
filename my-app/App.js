@@ -46,16 +46,20 @@ const NovoComponente = () => {
 
 function App() {
   return (
-    <View>
-      <Image />
-      <Text>Login</Text>
-      <TextInput />
-      <TextInput />
+    <View style={styles.container}>
+      <Image height={119} width={142} source={require("./logo.png")} />
+      <Text style={styles.textoLogin}>Login</Text>
+      <TextInput placeholder="Email" style={styles.caixaTexto} />
+      <TextInput
+        secureTextEntry={true}
+        placeholder="Senha"
+        style={styles.caixaTexto}
+      />
       <TouchableOpacity>
         <Text>Esqueceu sua senha?</Text>
       </TouchableOpacity>
-      <TouchableOpacity>
-        <Text>Logar</Text>
+      <TouchableOpacity style={styles.botaoLogar}>
+        <Text style={styles.textoLogar}>Logar</Text>
       </TouchableOpacity>
       <TouchableOpacity>
         <Text>Criar conta</Text>
@@ -72,8 +76,54 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    paddingHorizontal: 35,
   },
   texto: {
     fontSize: 30,
+  },
+  textoLogin: {
+    color: "#1F41BB",
+    fontSize: 30,
+    fontWeight: "700",
+    textAlign: "center",
+    marginBottom: 58,
+    marginTop: 50,
+  },
+  caixaTexto: {
+    width: "100%",
+    height: 64,
+    borderWidth: 2,
+    borderRadius: 10,
+    borderColor: "#1F41BB",
+    backgroundColor: "#F1F4FF",
+    padding: 20,
+    justifyContent: "center",
+    fontSize: 16,
+    color: "#626262",
+    marginBottom: 30,
+  },
+  botaoLogar: {
+    width: "100%",
+    padding: 20,
+    backgroundColor: "#1F41BB",
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  textoLogar: {
+    color: "#fff",
+    fontSize: 20,
+    fontWeight: "600",
+    // Sombras iOS
+    shadowColor: "#CBD6FF",
+    shadowOffset: {
+      width: 0,
+      height: 10, // mesmo do box-shadow
+    },
+    shadowOpacity: 1, // ajuste da transparência
+    shadowRadius: 20, // espalhamento
+
+    // Sombras Android
+    elevation: 20, // quanto maior, mais sombra
   },
 });
