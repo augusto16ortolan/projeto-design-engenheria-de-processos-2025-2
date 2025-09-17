@@ -1,0 +1,222 @@
+export const pokemonList = [
+  {
+    id: 1,
+    name: "bulbasaur",
+    sprites: {
+      front_default:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+    },
+    types: [{ type: { name: "grass" } }, { type: { name: "poison" } }],
+    height: 7,
+    weight: 69,
+  },
+  {
+    id: 2,
+    name: "ivysaur",
+    sprites: {
+      front_default:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png",
+    },
+    types: [{ type: { name: "grass" } }, { type: { name: "poison" } }],
+    height: 10,
+    weight: 130,
+  },
+  {
+    id: 3,
+    name: "venusaur",
+    sprites: {
+      front_default:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
+    },
+    types: [{ type: { name: "grass" } }, { type: { name: "poison" } }],
+    height: 20,
+    weight: 1000,
+  },
+  {
+    id: 4,
+    name: "charmander",
+    sprites: {
+      front_default:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
+    },
+    types: [{ type: { name: "fire" } }],
+    height: 6,
+    weight: 85,
+  },
+  {
+    id: 5,
+    name: "charmeleon",
+    sprites: {
+      front_default:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png",
+    },
+    types: [{ type: { name: "fire" } }],
+    height: 11,
+    weight: 190,
+  },
+  {
+    id: 6,
+    name: "charizard",
+    sprites: {
+      front_default:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png",
+    },
+    types: [{ type: { name: "fire" } }, { type: { name: "flying" } }],
+    height: 17,
+    weight: 905,
+  },
+  {
+    id: 7,
+    name: "squirtle",
+    sprites: {
+      front_default:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png",
+    },
+    types: [{ type: { name: "water" } }],
+    height: 5,
+    weight: 90,
+  },
+  {
+    id: 8,
+    name: "wartortle",
+    sprites: {
+      front_default:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/8.png",
+    },
+    types: [{ type: { name: "water" } }],
+    height: 10,
+    weight: 225,
+  },
+  {
+    id: 9,
+    name: "blastoise",
+    sprites: {
+      front_default:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png",
+    },
+    types: [{ type: { name: "water" } }],
+    height: 16,
+    weight: 855,
+  },
+  {
+    id: 10,
+    name: "caterpie",
+    sprites: {
+      front_default:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10.png",
+    },
+    types: [{ type: { name: "bug" } }],
+    height: 3,
+    weight: 29,
+  },
+  {
+    id: 11,
+    name: "metapod",
+    sprites: {
+      front_default:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/11.png",
+    },
+    types: [{ type: { name: "bug" } }],
+    height: 7,
+    weight: 99,
+  },
+  {
+    id: 12,
+    name: "butterfree",
+    sprites: {
+      front_default:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/12.png",
+    },
+    types: [{ type: { name: "bug" } }, { type: { name: "flying" } }],
+    height: 11,
+    weight: 320,
+  },
+  {
+    id: 13,
+    name: "weedle",
+    sprites: {
+      front_default:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/13.png",
+    },
+    types: [{ type: { name: "bug" } }, { type: { name: "poison" } }],
+    height: 3,
+    weight: 32,
+  },
+  {
+    id: 14,
+    name: "kakuna",
+    sprites: {
+      front_default:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/14.png",
+    },
+    types: [{ type: { name: "bug" } }, { type: { name: "poison" } }],
+    height: 6,
+    weight: 100,
+  },
+  {
+    id: 15,
+    name: "beedrill",
+    sprites: {
+      front_default:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/15.png",
+    },
+    types: [{ type: { name: "bug" } }, { type: { name: "poison" } }],
+    height: 10,
+    weight: 295,
+  },
+  {
+    id: 16,
+    name: "pidgey",
+    sprites: {
+      front_default:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/16.png",
+    },
+    types: [{ type: { name: "normal" } }, { type: { name: "flying" } }],
+    height: 3,
+    weight: 18,
+  },
+  {
+    id: 17,
+    name: "pidgeotto",
+    sprites: {
+      front_default:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/17.png",
+    },
+    types: [{ type: { name: "normal" } }, { type: { name: "flying" } }],
+    height: 11,
+    weight: 300,
+  },
+  {
+    id: 18,
+    name: "pidgeot",
+    sprites: {
+      front_default:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/18.png",
+    },
+    types: [{ type: { name: "normal" } }, { type: { name: "flying" } }],
+    height: 15,
+    weight: 395,
+  },
+  {
+    id: 19,
+    name: "rattata",
+    sprites: {
+      front_default:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/19.png",
+    },
+    types: [{ type: { name: "normal" } }],
+    height: 3,
+    weight: 35,
+  },
+  {
+    id: 20,
+    name: "raticate",
+    sprites: {
+      front_default:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/20.png",
+    },
+    types: [{ type: { name: "normal" } }],
+    height: 7,
+    weight: 185,
+  },
+];
