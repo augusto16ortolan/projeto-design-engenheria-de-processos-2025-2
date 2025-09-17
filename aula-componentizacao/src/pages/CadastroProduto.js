@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   Text,
-  TextInput,
   TouchableOpacity,
   StyleSheet,
   ScrollView,
@@ -9,6 +8,8 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
+
+import CampoTexto from "../components/CampoTexto";
 
 export default function CadastroProduto() {
   const [nome, setNome] = useState("");
@@ -61,134 +62,122 @@ export default function CadastroProduto() {
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.title}>Cadastro de Produto</Text>
 
-        <Text style={styles.label}>Nome *</Text>
-        <TextInput
-          style={styles.input}
+        <CampoTexto
+          labelText={"Nome"}
+          campoObrigatorio={true}
           value={nome}
           onChangeText={setNome}
           placeholder="Digite o nome"
           autoCapitalize="words"
         />
 
-        <Text style={styles.label}>Descrição</Text>
-        <TextInput
-          style={styles.input}
+        <CampoTexto
+          labelText={"Descrição"}
           value={descricao}
           onChangeText={setDescricao}
           placeholder="Digite a descrição"
           autoCapitalize="sentences"
         />
 
-        <Text style={styles.label}>Preço (R$) *</Text>
-        <TextInput
-          style={styles.input}
+        <CampoTexto
+          labelText={"Preço (R$)"}
+          campoObrigatorio={true}
           value={preco}
           onChangeText={(text) => setPreco(text.replace(/[^0-9.,]/g, ""))}
           placeholder="Ex: 19.99"
           keyboardType="decimal-pad"
         />
 
-        <Text style={styles.label}>Quantidade</Text>
-        <TextInput
-          style={styles.input}
+        <CampoTexto
+          labelText={"Quantidade"}
           value={quantidade}
           onChangeText={(text) => setQuantidade(text.replace(/[^0-9]/g, ""))}
           placeholder="Somente números"
           keyboardType="numeric"
         />
 
-        <Text style={styles.label}>Código de Barras</Text>
-        <TextInput
-          style={styles.input}
+        <CampoTexto
+          labelText={"Código de Barras"}
           value={codigoBarras}
           onChangeText={(text) => setCodigoBarras(text.replace(/[^0-9]/g, ""))}
           placeholder="Somente números"
           keyboardType="numeric"
         />
 
-        <Text style={styles.label}>Categoria</Text>
-        <TextInput
-          style={styles.input}
+        <CampoTexto
+          labelText={"Categoria"}
           value={categoria}
           onChangeText={setCategoria}
           placeholder="Digite a categoria"
         />
 
-        <Text style={styles.label}>Fabricante</Text>
-        <TextInput
-          style={styles.input}
+        <CampoTexto
+          labelText={"Fabricante"}
           value={fabricante}
           onChangeText={setFabricante}
           placeholder="Digite o fabricante"
           autoCapitalize="words"
         />
 
-        <Text style={styles.label}>Marca</Text>
-        <TextInput
-          style={styles.input}
+        <CampoTexto
+          labelText={"Marca"}
           value={marca}
           onChangeText={setMarca}
           placeholder="Digite a marca"
           autoCapitalize="words"
         />
 
-        <Text style={styles.label}>Modelo</Text>
-        <TextInput
-          style={styles.input}
+        <CampoTexto
+          labelText={"Modelo"}
           value={modelo}
           onChangeText={setModelo}
           placeholder="Digite o modelo"
           autoCapitalize="characters"
         />
 
-        <Text style={styles.label}>Cor</Text>
-        <TextInput
-          style={styles.input}
+        <CampoTexto
+          labelText={"Cor"}
           value={cor}
           onChangeText={setCor}
           placeholder="Digite a cor"
         />
 
-        <Text style={styles.label}>Peso (kg)</Text>
-        <TextInput
-          style={styles.input}
+        <CampoTexto
+          labelText={"Peso (kg)"}
           value={peso}
           onChangeText={(text) => setPeso(text.replace(/[^0-9.,]/g, ""))}
           placeholder="Ex: 1.5"
           keyboardType="decimal-pad"
         />
 
-        <Text style={styles.label}>Dimensões</Text>
-        <TextInput
-          style={styles.input}
+        <CampoTexto
+          labelText={"Dimensões"}
           value={dimensoes}
           onChangeText={setDimensoes}
           placeholder="Ex: 20x30x15 cm"
         />
 
-        <Text style={styles.label}>Local de Armazenamento</Text>
-        <TextInput
-          style={styles.input}
+        <CampoTexto
+          labelText={"Local de Armazenamento"}
           value={localArmazenamento}
           onChangeText={setLocalArmazenamento}
           placeholder="Ex: Estoque A1"
         />
 
-        <Text style={styles.label}>Fornecedor</Text>
-        <TextInput
-          style={styles.input}
+        <CampoTexto
+          labelText={"Fornecedor"}
           value={fornecedor}
           onChangeText={setFornecedor}
           placeholder="Digite o fornecedor"
         />
 
-        <Text style={styles.label}>Observação</Text>
-        <TextInput
-          style={[styles.input, { height: 80 }]}
+        <CampoTexto
+          labelText={"Observação"}
           value={observacao}
           onChangeText={setObservacao}
           placeholder="Digite observações adicionais"
-          multiline
+          multiline={true}
+          numberOfLines={4}
         />
 
         <TouchableOpacity style={styles.button} onPress={handleCadastro}>
@@ -210,26 +199,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: "center",
     color: "#333",
-  },
-  label: {
-    fontSize: 16,
-    marginBottom: 6,
-    marginTop: 12,
-    color: "#444",
-    fontWeight: "bold",
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 10,
-    padding: 12,
-    fontSize: 16,
-    backgroundColor: "#fff",
-    shadowColor: "#000",
-    shadowOpacity: 0.05,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 3,
-    elevation: 2,
   },
   button: {
     backgroundColor: "#007BFF",
