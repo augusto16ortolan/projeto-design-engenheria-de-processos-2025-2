@@ -1,32 +1,55 @@
-import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, Image, StyleSheet, ActivityIndicator } from "react-native";
+
+import { getPokemonBy } from "../../services/pokemonService";
 
 export default function PokemonDetail({ route }) {
-  const { pokemon } = route.params;
+  const { url } = route.params.pokemon;
+  const [pokemon, setPokemon] = useState();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    console.log("entrou");
+    getPokemon();
+  }, []);
+
+  async function getPokemon() {
+    setLoading(true);
+    const response = await getPokemonBy(url);
+    console.log(response);
+    setPokemon(response);
+    setLoading(false);
+  }
+
+  if (loading && !pokemon) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size={"large"} color={"red"} />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
       <Image
-        source={{ uri: pokemon.sprites.front_default }}
+        source={{ uri: pokemon?.sprites?.front_default }}
         style={styles.image}
       />
-      <Text style={styles.name}>{pokemon.name}</Text>
+      <Text style={styles.name}>{pokemon?.name}</Text>
 
       <View style={styles.infoBox}>
         <Text style={styles.label}>Tipos:</Text>
-        <Text style={styles.value}>
-          {pokemon.types.map((t) => t.type.name).join(", ")}
-        </Text>
+        <Text style={styles.value}>{pokemon?.types}</Text>
       </View>
 
       <View style={styles.infoBox}>
         <Text style={styles.label}>Altura:</Text>
-        <Text style={styles.value}>{pokemon.height}</Text>
+        <Text style={styles.value}>{pokemon?.height}</Text>
       </View>
 
       <View style={styles.infoBox}>
         <Text style={styles.label}>Peso:</Text>
-        <Text style={styles.value}>{pokemon.weight}</Text>
+        <Text style={styles.value}>{pokemon?.weight}</Text>
       </View>
     </View>
   );

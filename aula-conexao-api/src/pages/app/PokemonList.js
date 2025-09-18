@@ -1,9 +1,38 @@
-import React from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
-import { pokemonList } from "../../data/pokemon";
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  ActivityIndicator,
+} from "react-native";
 import PokemonCard from "../../components/PokemonCard";
 
+import { getPokemonList } from "../../services/pokemonService";
+
 export default function PokemonList({ navigation }) {
+  const [pokemonList, setPokemonList] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  async function fetchData() {
+    setLoading(true);
+    const response = await getPokemonList();
+    setPokemonList(response);
+    setLoading(false);
+  }
+
+  if (loading && pokemonList.length == 0) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size={"large"} color={"red"} />
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Pokédex</Text>

@@ -4,10 +4,7 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 export default function PokemonCard({ pokemon, onPress }) {
   return (
     <TouchableOpacity style={styles.card} onPress={onPress}>
-      <Image
-        source={{ uri: pokemon.sprites.front_default }}
-        style={styles.image}
-      />
+      <Image source={{ uri: pokemon.image }} style={styles.image} />
       <Text style={styles.name}>{pokemon.name}</Text>
     </TouchableOpacity>
   );

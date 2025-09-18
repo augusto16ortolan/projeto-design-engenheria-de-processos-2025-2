@@ -10,7 +10,7 @@ export default function Routes() {
   return (
     <NavigationContainer>
       {isLoggedIn ? (
-        <AppStack />
+        <AppStack onLogout={() => setIsLoggedIn(false)} />
       ) : (
         <AuthStack onLogin={() => setIsLoggedIn(true)} />
       )}
