@@ -1,29 +1,37 @@
 import React, { createContext, useState, useContext } from "react";
 
+import { login as signIn, register } from "../services/AuthService";
+
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
 
-    const login = (email, password) => {
-        console.log("Login:", { email, password });
-        setUser({ email });
-    };
+  const login = async (email, password) => {
+    const response = await signIn(email, password);
 
-    const logout = () => {
-        setUser(null);
-    };
+    setUser(response.user);
 
-    const signup = (email, password) => {
-        console.log("Signup:", { email, password });
-        setUser({ email });
-    };
+    return response;
+  };
 
-    return (
-        <AuthContext.Provider value={{ user, login, logout, signup }}>
-            {children}
-        </AuthContext.Provider>
-    );
+  const logout = () => {
+    setUser(null);
+  };
+
+  const signup = async (email, password) => {
+    const response = await register(email, password);
+
+    setUser(response.user);
+
+    return response;
+  };
+
+  return (
+    <AuthContext.Provider value={{ user, login, logout, signup }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export const useAuth = () => useContext(AuthContext);

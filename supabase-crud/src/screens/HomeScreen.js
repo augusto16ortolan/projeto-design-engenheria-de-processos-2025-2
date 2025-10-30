@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,13 +7,26 @@ import {
   StyleSheet,
   Image,
 } from "react-native";
-import { products as initialProducts } from "../data/products";
 import { useAuth } from "../context/AuthContext";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { buscarProdutos, deletarProduto } from "../services/ProdutoService";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function HomeScreen({ navigation }) {
-  const [products, setProducts] = useState(initialProducts);
-  const { logout } = useAuth();
+  const [products, setProducts] = useState([]);
+  const { logout, user } = useAuth();
+
+  useFocusEffect(
+    React.useCallback(() => {
+      getProdutos();
+    }, [])
+  );
+
+  async function getProdutos() {
+    const response = await buscarProdutos(user.id);
+    console.log(response);
+    setProducts(response.produtos);
+  }
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -26,7 +39,8 @@ export default function HomeScreen({ navigation }) {
     });
   }, [navigation, logout]);
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
+    await deletarProduto(id, user.id);
     setProducts(products.filter((p) => p.id !== id));
   };
 

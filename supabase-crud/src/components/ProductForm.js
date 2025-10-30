@@ -72,8 +72,8 @@ export default function ProductForm({
       {/* Botão Salvar */}
       <TouchableOpacity
         style={styles.button}
-        onPress={() =>
-          onSubmit({
+        onPress={async () =>
+          await onSubmit({
             description,
             value: parseFloat(value),
             quantity: parseInt(quantity),

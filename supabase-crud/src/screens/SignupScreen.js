@@ -16,14 +16,20 @@ export default function SignupScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const { signup } = useAuth();
 
-  const handleSignup = () => {
+  const handleSignup = async () => {
     if (password !== confirmPassword) {
       alert("As senhas não coincidem!");
       return;
     }
-    signup(email, password);
+    setErrorMessage("");
+    const response = await signup(email, password);
+
+    if (response.error) {
+      setErrorMessage(response.message);
+    }
   };
 
   const handleSocialSignup = (provider) => {
@@ -89,6 +95,8 @@ export default function SignupScreen({ navigation }) {
         <TouchableOpacity style={styles.button} onPress={handleSignup}>
           <Text style={styles.buttonText}>Cadastrar</Text>
         </TouchableOpacity>
+
+        <Text>{errorMessage}</Text>
 
         <Text style={styles.orText}>Ou continue com</Text>
         <View style={styles.socialRow}>

@@ -15,10 +15,16 @@ import { Ionicons, FontAwesome, AntDesign } from "@expo/vector-icons";
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const { login } = useAuth();
 
-  const handleLogin = () => {
-    login(email, password);
+  const handleLogin = async () => {
+    setErrorMessage("");
+    const response = await login(email, password);
+
+    if (response.error) {
+      setErrorMessage(response.message);
+    }
   };
 
   const handleSocialLogin = (provider) => {
@@ -77,6 +83,8 @@ export default function LoginScreen({ navigation }) {
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
+
+        <Text>{errorMessage}</Text>
 
         <Text style={styles.orText}>Ou continue com</Text>
         <View style={styles.socialRow}>
