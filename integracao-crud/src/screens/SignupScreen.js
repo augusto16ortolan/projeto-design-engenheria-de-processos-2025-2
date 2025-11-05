@@ -13,6 +13,7 @@ import { useAuth } from "../context/AuthContext";
 import { Ionicons, FontAwesome, AntDesign } from "@expo/vector-icons";
 
 export default function SignupScreen({ navigation }) {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -25,7 +26,12 @@ export default function SignupScreen({ navigation }) {
       return;
     }
     setErrorMessage("");
-    const response = await signup(email, password);
+    const response = await signup({ email, password, name });
+
+    if (response.success) {
+      alert("Conta criada com sucesso.");
+      navigation.replace("Login");
+    }
 
     if (response.error) {
       setErrorMessage(response.message);
@@ -54,6 +60,17 @@ export default function SignupScreen({ navigation }) {
         <Text style={styles.subtitle}>
           Preencha os dados abaixo para se cadastrar
         </Text>
+
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>Nome</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Digite seu nome"
+            placeholderTextColor="#aaa"
+            value={name}
+            onChangeText={setName}
+          />
+        </View>
 
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Email</Text>

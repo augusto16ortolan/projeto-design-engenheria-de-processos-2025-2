@@ -1,4 +1,5 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { login, register } from "../services/AuthService";
 
@@ -6,25 +7,54 @@ const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    carregarCredenciais();
+  }, []);
+
+  async function carregarCredenciais() {
+    const response = await AsyncStorage.getItem("@SistemaEstoque_credenciais");
+    const credenciais = await JSON.parse(response);
+    await signIn(credenciais.email, credenciais.password);
+  }
 
   const signIn = async (email, password) => {
     const response = await login(email, password);
+
+    console.log("passou 1");
+    if (!response.error) {
+      console.log("passou 2");
+      try {
+        await AsyncStorage.setItem(
+          "@SistemaEstoque_credenciais",
+          JSON.stringify({ email, password })
+        );
+      } catch (error) {
+        console.error;
+      }
+    }
+    console.log("passou 3");
+
     setUser(response.user);
+    setToken(response.token);
+
     return response;
   };
 
-  const signup = async (email, password) => {
-    const response = await register(email, password);
-    setUser(response.user);
+  const signup = async ({ email, password, name }) => {
+    const response = await register({ email, password, name });
     return response;
   };
 
-  const logout = () => {
+  const logout = async () => {
     setUser(null);
+    setToken(null);
+    await AsyncStorage.removeItem("@SistemaEstoque_credenciais");
   };
 
   return (
-    <AuthContext.Provider value={{ user, signIn, logout, signup }}>
+    <AuthContext.Provider value={{ user, signIn, logout, signup, token }}>
       {children}
     </AuthContext.Provider>
   );

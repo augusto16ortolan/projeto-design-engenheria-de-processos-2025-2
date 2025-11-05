@@ -1,9 +1,21 @@
+import api from "./api.js";
+
 export async function login(email, senha) {
   try {
+    const response = await api.post("/auth/signin", {
+      email,
+      password: senha,
+    });
+
+    const data = response.data;
+
     return {
-      user: { nome: "Augusto Ortolan" },
+      user: data.user,
+      token: data.token,
+      error: false,
     };
   } catch (error) {
+    console.log(error.response.data);
     return {
       error: true,
       message: "Erro ao fazer o login",
@@ -11,12 +23,19 @@ export async function login(email, senha) {
   }
 }
 
-export async function register(email, senha) {
+export async function register({ name, email, password }) {
   try {
+    await api.post("/auth/signup", {
+      name,
+      email,
+      password,
+    });
+
     return {
-      user: { nome: "Augusto Ortolan" },
+      success: true,
     };
   } catch (error) {
+    console.log(error.response.data);
     return {
       error: true,
       message: "Erro ao fazer o cadastro",

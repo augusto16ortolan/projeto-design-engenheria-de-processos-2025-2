@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function HomeScreen({ navigation }) {
-  const { logout, user } = useAuth();
+  const { logout, user, token } = useAuth();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -19,7 +19,8 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.userName}>{user.nome}</Text>
+      <Text style={styles.userName}>{user.name}</Text>
+      <Text style={styles.userName}>{token}</Text>
     </View>
   );
 }
