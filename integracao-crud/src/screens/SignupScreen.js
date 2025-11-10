@@ -26,7 +26,9 @@ export default function SignupScreen({ navigation }) {
       return;
     }
     setErrorMessage("");
+    console.log({ email, password, name });
     const response = await signup({ email, password, name });
+    console.log(response);
 
     if (response.success) {
       alert("Conta criada com sucesso.");

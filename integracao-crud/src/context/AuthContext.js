@@ -22,9 +22,7 @@ export const AuthProvider = ({ children }) => {
   const signIn = async (email, password) => {
     const response = await login(email, password);
 
-    console.log("passou 1");
     if (!response.error) {
-      console.log("passou 2");
       try {
         await AsyncStorage.setItem(
           "@SistemaEstoque_credenciais",
@@ -34,7 +32,8 @@ export const AuthProvider = ({ children }) => {
         console.error;
       }
     }
-    console.log("passou 3");
+
+    console.log(response.user);
 
     setUser(response.user);
     setToken(response.token);
