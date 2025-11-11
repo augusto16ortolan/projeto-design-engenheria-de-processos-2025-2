@@ -10,7 +10,7 @@ import {
   Image,
 } from "react-native";
 import { useAuth } from "../context/AuthContext";
-import { Ionicons, FontAwesome, AntDesign } from "@expo/vector-icons";
+import { FontAwesome, AntDesign } from "@expo/vector-icons";
 
 export default function SignupScreen({ navigation }) {
   const [name, setName] = useState("");

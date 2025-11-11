@@ -16,7 +16,6 @@ export default function HomeScreen({ navigation }) {
   const { logout, user } = useAuth();
   const { cart, getQuantity } = useCart();
 
-  // 🔹 15 produtos mockados
   const [products] = useState([
     {
       id: 1,
@@ -182,7 +181,6 @@ export default function HomeScreen({ navigation }) {
       ),
       headerRight: () => {
         if (user?.type === "Admin") {
-          // Botão para adicionar produto
           return (
             <TouchableOpacity
               style={{ marginRight: 15 }}
@@ -192,7 +190,6 @@ export default function HomeScreen({ navigation }) {
             </TouchableOpacity>
           );
         } else {
-          // Botão de carrinho para usuários comuns
           return (
             <TouchableOpacity
               style={{ marginRight: 15 }}
@@ -237,7 +234,7 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.welcome}>Olá, {user?.name || "usuário"} 👋</Text>
+      <Text style={styles.welcome}>Olá, {user?.name || "usuário"}</Text>
       <Text style={styles.subtitle}>Confira os produtos disponíveis:</Text>
 
       <FlatList

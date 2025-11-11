@@ -4,7 +4,6 @@ import AppStack from "./AppStack";
 import AuthStack from "./AuthStack";
 
 export default function AppNavigation() {
-    const { user } = useAuth();
-
-    return user ? <AppStack /> : <AuthStack />;
+  const { user } = useAuth();
+  return user ? <AppStack /> : <AuthStack />;
 }

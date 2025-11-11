@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     padding: 15,
     fontSize: 16,
     color: "#333",
-    backgroundColor: "#fff", // fundo branco para melhor contraste
+    backgroundColor: "#fff",
     shadowColor: "#000",
     shadowOpacity: 0.05,
     shadowRadius: 5,

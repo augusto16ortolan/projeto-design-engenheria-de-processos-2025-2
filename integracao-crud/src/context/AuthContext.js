@@ -29,11 +29,9 @@ export const AuthProvider = ({ children }) => {
           JSON.stringify({ email, password })
         );
       } catch (error) {
-        console.error;
+        console.error(error);
       }
     }
-
-    console.log(response.user);
 
     setUser(response.user);
     setToken(response.token);

@@ -31,8 +31,6 @@ export async function register({ name, email, password }) {
       password,
     });
 
-    console.log("tete");
-
     return {
       success: true,
     };

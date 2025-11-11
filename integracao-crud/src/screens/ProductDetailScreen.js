@@ -24,7 +24,7 @@ export default function ProductDetailScreen({ route, navigation }) {
   }, [navigation, product]);
 
   const handleEdit = () => {
-    navigation.navigate("ProductCreate", { product }); // 👈 envia produto para edição
+    navigation.navigate("ProductCreate", { product });
   };
 
   const handleDelete = () => {
@@ -37,7 +37,6 @@ export default function ProductDetailScreen({ route, navigation }) {
           text: "Excluir",
           style: "destructive",
           onPress: () => {
-            // Aqui você faria o DELETE na API
             Alert.alert("Sucesso", `Produto "${product.model}" excluído!`);
             navigation.goBack();
           },

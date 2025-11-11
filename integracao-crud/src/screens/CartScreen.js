@@ -73,7 +73,7 @@ export default function CartScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Carrinho 🛒</Text>
+      <Text style={styles.title}>Carrinho</Text>
 
       {cart.length === 0 ? (
         <View style={styles.emptyContainer}>
