@@ -11,9 +11,13 @@ import {
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { Ionicons } from "@expo/vector-icons";
+import { createProduct, updateProduct } from "../services/ProductService";
+import { useAuth } from "../context/AuthContext";
+import { uploadImage } from "../services/ImageService";
 
 export default function ProductCreateScreen({ navigation, route }) {
   const existingProduct = route.params?.product ?? null;
+  const { token } = useAuth();
 
   const [description, setDescription] = useState("");
   const [brand, setBrand] = useState("");
@@ -52,7 +56,8 @@ export default function ProductCreateScreen({ navigation, route }) {
       mediaTypes: ["images"],
       allowsEditing: true,
       aspect: [1, 1],
-      quality: 0.8,
+      quality: 0.5,
+      base64: true,
     });
 
     if (!result.canceled) {
@@ -60,11 +65,15 @@ export default function ProductCreateScreen({ navigation, route }) {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!description || !brand || !model || !price) {
       Alert.alert("Erro", "Preencha todos os campos obrigatórios.");
       return;
     }
+
+    let responseImage = {};
+
+    responseImage = await uploadImage(image);
 
     const productData = {
       description,
@@ -72,8 +81,28 @@ export default function ProductCreateScreen({ navigation, route }) {
       model,
       currency,
       price: parseFloat(price),
-      imageUrl: image?.uri || "",
+      imageUrl: responseImage?.imageUrl,
     };
+
+    if (existingProduct) {
+      const response = await updateProduct(
+        existingProduct.id,
+        productData,
+        token
+      );
+
+      if (response.error) {
+        Alert.alert("Falha", response.error);
+        return;
+      }
+    } else {
+      const response = await createProduct(productData, token);
+
+      if (response.error) {
+        Alert.alert("Falha", response.error);
+        return;
+      }
+    }
 
     if (existingProduct) {
       Alert.alert("Sucesso", "Produto atualizado com sucesso! ✅");

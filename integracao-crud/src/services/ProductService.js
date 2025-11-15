@@ -2,8 +2,17 @@ import api from "./api";
 
 export async function getProducts(targetCurrency = "BRL") {
   try {
+    const response = await api.get(`/products/${targetCurrency}?size=40`);
+
+    if (response.status != 200) {
+      return {
+        products: [],
+        error: "Erro ao buscar produtos.",
+      };
+    }
+
     return {
-      products: [],
+      products: response.data.content,
       error: null,
     };
   } catch (error) {
@@ -17,8 +26,17 @@ export async function getProducts(targetCurrency = "BRL") {
 
 export async function getProductById(id, targetCurrency = "BRL") {
   try {
+    const response = await api.get(`/products/${id}/${targetCurrency}`);
+
+    if (response.status != 200) {
+      return {
+        products: [],
+        error: "Erro ao buscar o produto.",
+      };
+    }
+
     return {
-      product: null,
+      product: response.data,
       error: null,
     };
   } catch (error) {
@@ -32,8 +50,21 @@ export async function getProductById(id, targetCurrency = "BRL") {
 
 export async function createProduct(productToCreate, token) {
   try {
+    const response = await api.post("/ws/products", productToCreate, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.status != 201) {
+      return {
+        product: null,
+        error: "Erro ao criar produto.",
+      };
+    }
+
     return {
-      product: null,
+      product: response.data,
       error: null,
     };
   } catch (error) {
@@ -47,8 +78,21 @@ export async function createProduct(productToCreate, token) {
 
 export async function updateProduct(id, productToUpdate, token) {
   try {
+    const response = await api.put(`/ws/products/${id}`, productToUpdate, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.status != 201) {
+      return {
+        product: null,
+        error: "Erro ao editar produto.",
+      };
+    }
+
     return {
-      product: null,
+      product: response.data,
       error: null,
     };
   } catch (error) {
@@ -62,6 +106,12 @@ export async function updateProduct(id, productToUpdate, token) {
 
 export async function deleteProduct(id, token) {
   try {
+    const response = await api.delete(`/ws/products/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
     return {
       success: true,
       error: null,

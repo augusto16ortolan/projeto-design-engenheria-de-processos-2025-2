@@ -5,25 +5,30 @@ export async function uploadImage(image) {
   const uploadPreset = "atitus"; // Pasta
   const apiUrl = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
 
+  console.log(image);
   if (!image || !image.base64) {
     return {
       imageUrl: null,
       error: "Imagem inválida ou ausente para upload.",
     };
   }
+  console.log(2);
 
   const data = new FormData();
   data.append("file", `data:image/jpeg;base64,${image.base64}`);
   data.append("upload_preset", uploadPreset);
+  console.log(3);
 
   try {
     const response = await axios.post(apiUrl, data, {
       headers: { "Content-Type": "multipart/form-data" },
     });
+    console.log(4);
 
     if (!response.data?.secure_url) {
       throw new Error("Falha ao obter URL da imagem no Cloudinary.");
     }
+    console.log(5);
 
     console.log("Upload concluído:", response.data.secure_url);
 

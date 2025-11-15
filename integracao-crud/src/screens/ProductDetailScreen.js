@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,21 +7,56 @@ import {
   StyleSheet,
   Alert,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
+import { getProductById, deleteProduct } from "../services/ProductService";
 
 export default function ProductDetailScreen({ route, navigation }) {
-  const { product } = route.params;
-  const { user } = useAuth();
+  const { product: initialProduct } = route.params;
+  const { user, token } = useAuth();
   const { addToCart } = useCart();
+
+  const [product, setProduct] = useState(initialProduct || null);
+  const [loading, setLoading] = useState(!initialProduct);
+  const [error, setError] = useState(null);
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: product.model || "Detalhes do Produto",
+      headerTitle: product?.model || "Detalhes do Produto",
     });
   }, [navigation, product]);
+
+  useEffect(() => {
+    if (!initialProduct?.id) return;
+
+    const fetchProduct = async () => {
+      try {
+        setLoading(true);
+        const { product: data, error } = await getProductById(
+          initialProduct.id
+        );
+
+        console.log(product);
+
+        if (error) {
+          setError(error);
+          Alert.alert("Erro", "Não foi possível carregar o produto.");
+        } else {
+          setProduct(data);
+        }
+      } catch (err) {
+        console.error(err);
+        Alert.alert("Erro", "Falha ao buscar os detalhes do produto.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
+  }, [initialProduct]);
 
   const handleEdit = () => {
     navigation.navigate("ProductCreate", { product });
@@ -36,7 +71,8 @@ export default function ProductDetailScreen({ route, navigation }) {
         {
           text: "Excluir",
           style: "destructive",
-          onPress: () => {
+          onPress: async () => {
+            await deleteProduct(initialProduct.id, token);
             Alert.alert("Sucesso", `Produto "${product.model}" excluído!`);
             navigation.goBack();
           },
@@ -49,6 +85,26 @@ export default function ProductDetailScreen({ route, navigation }) {
     addToCart(product);
     Alert.alert("Carrinho", `${product.model} adicionado ao carrinho 🛒`);
   };
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#3b82f6" />
+        <Text style={{ color: "#64748b", marginTop: 8 }}>
+          Carregando produto...
+        </Text>
+      </View>
+    );
+  }
+
+  if (error || !product) {
+    return (
+      <View style={styles.errorContainer}>
+        <Ionicons name="alert-circle-outline" size={40} color="#ef4444" />
+        <Text style={styles.errorText}>Erro ao carregar produto.</Text>
+      </View>
+    );
+  }
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
@@ -156,4 +212,23 @@ const styles = StyleSheet.create({
   edit: { backgroundColor: "#3b82f6" },
   delete: { backgroundColor: "#ef4444" },
   cart: { backgroundColor: "#16a34a" },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#f8fafc",
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#f8fafc",
+    padding: 20,
+  },
+  errorText: {
+    color: "#ef4444",
+    marginTop: 8,
+    fontSize: 16,
+    fontWeight: "600",
+  },
 });
